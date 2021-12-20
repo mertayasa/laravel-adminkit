@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengumuman;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
+use App\DataTables\PengumumanDataTable;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class PengumumanController extends Controller
 {
@@ -12,9 +16,18 @@ class PengumumanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Pengumuman $pengumuman)
     {
-        //
+        $pengumuman = Pengumuman::all();
+        // dd($pengumuman);
+        return view('pengumuman.index', compact('pengumuman'));
+    }
+
+    public function datatable()
+    {
+        // Log::info($approval_status);
+        $pengumuman = Pengumuman::all();
+        return PengumumanDataTable::set($pengumuman);
     }
 
     /**
@@ -24,7 +37,7 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        //
+        return view('pengumuman.create');
     }
 
     /**
@@ -35,7 +48,22 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $pengumuman = new Pengumuman;
+            $pengumuman->judul = $request->judul;
+            $pengumuman->deskripsi = $request->deskripsi;
+            $pengumuman->konten = $request->konten;
+            $pengumuman->lampiran = $request->lampiran;
+            $pengumuman->status = 'aktif';
+
+            // dd($pengumuman);
+            $pengumuman->save();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Data Pengumumann Gagal Ditambahkan');
+        }
+
+        return redirect('pengumuman')->with('info', 'Data Pengumumann Berhasil Ditambahkan & Menunggu Verifikasi');
     }
 
     /**
@@ -57,7 +85,7 @@ class PengumumanController extends Controller
      */
     public function edit(Pengumuman $pengumuman)
     {
-        //
+        return view('pengumuman.edit', compact('pengumuman'));
     }
 
     /**
@@ -67,9 +95,21 @@ class PengumumanController extends Controller
      * @param  \App\Models\Pengumuman  $pengumuman
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pengumuman $pengumuman)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $update = Pengumuman::find($id);
+            $update->title = $request->title;
+            $update->description = $request->description;
+            $update->approval_status = 0;
+
+            $update->save();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Data Pengumuman Gagal Di Edit');
+        }
+
+        return redirect('pengumuman')->with('info', 'Data Pengumuman Berhasil Diedit  & Menunggu Verifikasi');
     }
 
     /**
@@ -80,6 +120,13 @@ class PengumumanController extends Controller
      */
     public function destroy(Pengumuman $pengumuman)
     {
-        //
+        try {
+            $pengumuman->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data pengumuman']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data pengumuman']);
     }
 }
