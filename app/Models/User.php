@@ -11,15 +11,20 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    static $staff = 'staff';
+    static $admin = 'admin';
+    static $kades = 'kades';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
+        'level',
     ];
 
     /**
@@ -31,12 +36,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    static $admin = 'admin';
-    static $role2 = 'role2';
-    static $role3 = 'role3';
-    static $role4 = 'role4';
-    static $role5 = 'role5';
 
     /**
      * The attributes that should be cast to native types.
