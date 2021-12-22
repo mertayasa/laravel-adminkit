@@ -17,7 +17,7 @@
 
             <li class="sidebar-item {{ isActive('profile') }}">
                 <a class="sidebar-link" href="{{ route('profile.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Guru</span>
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
                 </a>
             </li>
 
