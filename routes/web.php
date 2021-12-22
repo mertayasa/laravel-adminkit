@@ -40,13 +40,4 @@ Route::middleware(['auth'])->group(function () {
         })->name('index');
     });
 
-    Route::group(['prefix' => 'pengumuman', 'as' => 'pengumuman.'], function () {
-        Route::get('/', [PengumumanController::class, 'index'])->name('index');
-        Route::get('create', [PengumumanController::class, 'create'])->name('create');
-        Route::post('store', [PengumumanController::class, 'store'])->name('store');
-        Route::get('edit/{pengumuman}', [PengumumanController::class, 'edit'])->name('edit');
-        Route::patch('update/{pengumuman}', [PengumumanController::class, 'update'])->name('update');
-        Route::delete('destroy/{pengumuman}', [PengumumanController::class, 'destroy'])->name('destroy');
-        Route::get('datatable', [PengumumanController::class, 'datatable'])->name('datatable');
-    });
 });

@@ -21,24 +21,6 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ isActive('blank') }}">
-                <a class="sidebar-link" href="{{ route('blank.index') }}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Data Siswa </span>
-                </a>
-            </li>
-
-            <li class="sidebar-item {{ isActive('pengumuman') }}">
-                <a class="sidebar-link" href="{{ route('pengumuman.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Pengumuman</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item {{ isActive('profile') }}">
-                <a class="sidebar-link" href="{{ route('profile.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Data Kelas</span>
-                </a>
-            </li>
-
             <li class="sidebar-header">
                 Multi Level
             </li>
