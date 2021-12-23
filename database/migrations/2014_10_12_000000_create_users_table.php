@@ -15,16 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('nip');
-            $table->text('alamat');
-            $table->text('tempat_lahir');
-            $table->date('tgl_lahir');
-            $table->string('no_tlp');
-            $table->text('pekerjaan');
-            $table->enum('status_guru', ['tetap', 'honorer', 'bukan_guru'])->default('honorer');
-            $table->enum('level', ['admin', 'guru', 'ortu'])->default('ortu');
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+            $table->string('name');
+            $table->enum('status', ['active', 'nonactive'])->default('active');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

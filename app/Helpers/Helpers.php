@@ -98,3 +98,13 @@ function uploadFile($base_64_foto, $folder)
 
     return $folder . '/' . $safeName;
 }
+
+function strConInArray($array, $check)
+{
+    foreach($array as $arr){
+        if(stripos($check, $arr) !== false){
+            return false;
+        }
+    }
+    return true;
+}

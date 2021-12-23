@@ -22,6 +22,33 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// Route::get('route', function (){
+//     $routeCollection = Route::getRoutes();
+//     $ignore_route = [
+//         'ignition',
+//         'login',
+//         'logout',
+//         'register',
+//         'password',
+//     ];
+
+//     foreach ($routeCollection as $value) {
+//         if(strConInArray($ignore_route, $value->getName()) && $value->getName() != null){
+//             dump($value->getName());
+//         }
+//     }
+// });
+
+// function strConInArray($array, $check)
+// {
+//     foreach($array as $arr){
+//         if(stripos($check, $arr) !== false){
+//             return false;
+//         }
+//     }
+//     return true;
+// }
+
 
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {

@@ -42,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    static $admin = 'admin';
+    static $role1 = 'role1';
+    static $role2 = 'role2';
+    static $active = 'active';
+    static $nonactive = 'nonactive';
 }
