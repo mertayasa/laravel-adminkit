@@ -6,30 +6,37 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Pages
+                Main
             </li>
 
-            <li class="sidebar-item {{ isActive('dashboard') }}">
-                <a class="sidebar-link" href="{{ route('dashboard.index') }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                </a>
-            </li>
+            @can('dashboard.index')
+                <li class="sidebar-item {{ isActive('dashboard') }}">
+                    <a class="sidebar-link" href="{{ route('dashboard.index') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                    </a>
+                </li>
+            @endcan
 
-            <li class="sidebar-item {{ isActive('profile') }}">
-                <a class="sidebar-link" href="{{ route('profile.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-                </a>
-            </li>
+            @can('profile.index')
+                <li class="sidebar-item {{ isActive('profile') }}">
+                    <a class="sidebar-link" href="{{ route('profile.index') }}">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                    </a>
+                </li>
+            @endcan
 
-            <li class="sidebar-item {{ isActive('permission') }}">
-                <a class="sidebar-link" href="{{ route('permission.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Permission</span>
-                </a>
-            </li>
+            @can('profile.index')
+                <li class="sidebar-item {{ isActive('permission') }}">
+                    <a class="sidebar-link" href="{{ route('permission.index') }}">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Permission</span>
+                    </a>
+                </li>
+            @endcan
 
             <li class="sidebar-header">
                 Multi Level
             </li>
+            
             <li class="sidebar-item">
                 <a data-target="#ui" data-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle" data-feather="briefcase"></i> <span class="align-middle">Level 1</span>

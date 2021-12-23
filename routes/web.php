@@ -72,7 +72,10 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::get('/', [PermissionController::class, 'index'])->name('index');
         Route::get('create', [PermissionController::class, 'create'])->name('create');
         Route::get('edit/{permission}', [PermissionController::class, 'edit'])->name('edit');
+        Route::patch('update/{permission}', [PermissionController::class, 'update'])->name('update');
         Route::post('assign-revoke', [PermissionController::class, 'assignRevoke'])->name('assign_revoke');
+        Route::get('refresh', [PermissionController::class, 'refresh'])->name('refresh');
+        Route::get('refresh-and-assign', [PermissionController::class, 'refreshAndAssign'])->name('refresh_and_assign');
     });
 
 });

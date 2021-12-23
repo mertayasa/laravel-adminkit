@@ -6,6 +6,10 @@
 
     <script>
         window.addEventListener("load", function(){
+            initCheckbox()
+        })
+
+        function initCheckbox(){
             const checkBox = document.querySelectorAll('input[type="checkbox"].permission')
             for(let i=0; i<checkBox.length; i++){
                 const roleName = checkBox[i].getAttribute('data-role-name')
@@ -19,10 +23,9 @@
                     updateRolePermission(roleId, permission.permission)
                 })
             }
-        });
+        }
 
         function updateRolePermission(roleId, permission){
-            console.log(roleId, permission);
             const url = "{{ route('permission.assign_revoke') }}"
             const formData = new FormData()
             formData.append('role_id', roleId)
@@ -37,11 +40,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                showToast(data.code, data.toast_message)
+                showToast(data.code, data.message)
             })
             .catch((error) => {
-                showToast('Something went wrong', 'Something went wrong')
+                showToast(0, 'Something went wrong')
             });
         }
 
