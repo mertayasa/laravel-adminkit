@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 
 class PermissionMiddleware
 {
@@ -20,15 +20,17 @@ class PermissionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $route_name = Route::currentRouteName();
         if(Auth::check()){
-            $route_name = Route::currentRouteName();
             $check_permission = Permission::where('name', $route_name)->first();
 
-            if (!$check_permission || !Auth::user()->hasPermissionTo($route_name)) {
-                throw new UnauthorizedException(403, trans('error.permission') . ' <b>' . $route_name . '</b>');
+            if (!$check_permission || auth()->user()->hasPermissionTo($route_name) == false) {
+                throw new UnauthorizedException(403, 'You dont have permission to '. $route_name);
             }
 
             return $next($request);
+        }else{
+            throw new UnauthorizedException(403, 'You dont have permission to '. $route_name ?? '-');
         }
 
         abort(403);

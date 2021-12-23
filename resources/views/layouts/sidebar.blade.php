@@ -21,9 +21,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ isActive('cuk') }}">
-                <a class="sidebar-link" href="{{ route('cuk.index') }}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">cuk</span>
+            <li class="sidebar-item {{ isActive('permission') }}">
+                <a class="sidebar-link" href="{{ route('permission.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Permission</span>
                 </a>
             </li>
 

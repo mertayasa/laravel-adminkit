@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,10 +68,11 @@ Route::middleware(['auth', 'permission'])->group(function () {
         })->name('index');
     });
 
-    Route::group(['prefix' => 'cuk', 'as' => 'cuk.'], function () {
-        Route::get('/', function () {
-            return view('sample.cuk.index');
-        })->name('index');
+    Route::group(['prefix' => 'permission', 'as' => 'permission.'], function () {
+        Route::get('/', [PermissionController::class, 'index'])->name('index');
+        Route::get('create', [PermissionController::class, 'create'])->name('create');
+        Route::get('edit/{permission}', [PermissionController::class, 'edit'])->name('edit');
+        Route::post('assign-revoke', [PermissionController::class, 'assignRevoke'])->name('assign_revoke');
     });
 
 });
