@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="plugin/datatables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugin/datatables/datatables.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugin/icheck-js/skins/flat/blue.css') }}"/>
 @endpush
 
 @section('content')

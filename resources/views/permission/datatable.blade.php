@@ -1,16 +1,30 @@
 {!! $dataTable->table(['width' => '100%']) !!}
 
 @push('scripts')
-    <script type="text/javascript" src="plugin/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="{{ asset('plugin/datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugin/icheck-js/icheck.js') }}"></script>
     {!! $dataTable->scripts() !!}
 
     <script>
         window.addEventListener("load", function(){
-            initCheckbox()
+            setTimeout(() => {
+                initCheckbox()
+            }, 300);
         })
 
+
+ 
         function initCheckbox(){
             const checkBox = document.querySelectorAll('input[type="checkbox"].permission')
+
+            // const paginateButton = document.getElementsByClassName('page-link')
+            // for(let i=0; i<paginateButton.length; i++){
+            //     paginateButton[i].addEventListener('click', target => {
+            //         initCheckbox()
+            //     })
+            // }
+
+
             for(let i=0; i<checkBox.length; i++){
                 const roleName = checkBox[i].getAttribute('data-role-name')
                 const roleId = checkBox[i].getAttribute('data-role-id')

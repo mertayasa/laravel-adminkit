@@ -44,6 +44,50 @@
 	<script src="{{ asset('js/vendor.js') }}"></script>
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('admin/js/app.js') }}"></script>
+	<script>
+		function deleteModel(deleteUrl, tableId, model = '', additional_warning = ''){
+			Swal.fire({
+				title: "Warning",
+				text: `Destroy data ${model}? ${additional_warning}`,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#169b6b',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes',
+				cancelButtonText: 'No'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url : deleteUrl,
+						dataType : "Json",
+						data : {"_token": "{{ csrf_token() }}"},
+						method : "delete",
+						success:function(data){
+							// console.log(data)
+							if(data.code == 1){
+								Swal.fire(
+									'Berhasil',
+									data.message,
+									'success'
+								)
+								if(additionalMethod != null){
+								additionalMethod.apply(this, [data.args])
+								}
+								
+							}else{
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: data.message
+								})
+							}
+							$('#'+tableId).DataTable().ajax.reload();
+						}
+					})
+				}
+			})
+		}
+	</script>
 	@stack('scripts')
 </body>
 
