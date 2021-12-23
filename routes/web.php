@@ -50,7 +50,7 @@ Route::get('/', function () {
 // }
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'permission'])->group(function () {
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
     });
@@ -64,6 +64,12 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'blank', 'as' => 'blank.'], function () {
         Route::get('/', function () {
             return view('sample.blank.index');
+        })->name('index');
+    });
+
+    Route::group(['prefix' => 'cuk', 'as' => 'cuk.'], function () {
+        Route::get('/', function () {
+            return view('sample.cuk.index');
         })->name('index');
     });
 

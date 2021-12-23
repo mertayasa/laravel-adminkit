@@ -21,6 +21,12 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ isActive('cuk') }}">
+                <a class="sidebar-link" href="{{ route('cuk.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">cuk</span>
+                </a>
+            </li>
+
             <li class="sidebar-header">
                 Multi Level
             </li>
