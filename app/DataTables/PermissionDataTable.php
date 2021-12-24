@@ -22,7 +22,7 @@ class PermissionDataTable extends DataTable
             ->editColumn('roles', function ($permission) {
                 return json_encode(['permissionId' => $permission->id, 'permission' => $permission->name, 'roles' => $permission->roles->pluck('name')->toArray()]);
             })
-            ->addColumn('action', 'permission.datatables_actions');
+            ->addColumn('action', 'setting.permission.datatables_actions');
     }
 
     public function query(Permission $model){
@@ -31,7 +31,7 @@ class PermissionDataTable extends DataTable
 
     public function html(){
         return $this->builder()
-                    ->searching(false)
+                    // ->searching(false)
                     ->setTableId('permissionDatatable')
                     ->columns($this->getColumns())
                     ->addAction(['title' => 'Aksi', 'width' => '150px', 'printable' => false, 'responsivePriority' => '100', 'id' => 'actionColumn'])

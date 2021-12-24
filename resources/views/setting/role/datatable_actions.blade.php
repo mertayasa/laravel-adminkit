@@ -1,0 +1,4 @@
+<div class="form-group">
+    <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#roleModal" onclick="editRole(this)" data-id="{{ $id }}" data-url="{{ route('setting.role.update', $id) }}" data-bs-placement="bottom" title="Edit" ><i class="menu-icon fa fa-pencil-alt"></i></a>
+    <a href="#" onclick="deleteModel('{{ route('setting.role.destroy', $id) }}', 'roleDatatable', 'role', 'user with role {{ $name }} will unable to login again')" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus"><i class="menu-icon fa fa-trash"></i></a>
+</div>

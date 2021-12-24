@@ -17,21 +17,20 @@
                 </li>
             @endcan
 
-            @can('profile.index')
-                <li class="sidebar-item {{ isActive('profile') }}">
-                    <a class="sidebar-link" href="{{ route('profile.index') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+            @php
+                $allowed_setting_permission = [
+                    'setting.permission.index',
+                    'setting.permission.role',
+                    'setting.permission.profile',
+                ]
+            @endphp
+            @if(auth()->user()->hasAnyPermission($allowed_setting_permission))
+                <li class="sidebar-item {{ isActive('setting') }}">
+                    <a class="sidebar-link" href="{{ route('setting.permission.index') }}">
+                        <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Setting</span>
                     </a>
                 </li>
-            @endcan
-
-            @can('profile.index')
-                <li class="sidebar-item {{ isActive('permission') }}">
-                    <a class="sidebar-link" href="{{ route('permission.index') }}">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Permission</span>
-                    </a>
-                </li>
-            @endcan
+            @endif
 
             <li class="sidebar-header">
                 Multi Level

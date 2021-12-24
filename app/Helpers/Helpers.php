@@ -22,7 +22,12 @@ function isActive($param)
             }
         }
     } else {
-        return Request::route()->getPrefix() == '/' . $param ? 'active' : '';
+        $segments = request()->segments();
+        foreach($segments as $segment){
+            if($segment == $param){
+                return 'active';
+            }
+        }
     }
 
     return '';

@@ -15,7 +15,14 @@ class PermissionController extends Controller
 {
     public function index(PermissionDataTable $permissionDataTable)
     {
-        return $permissionDataTable->render('permission.index');
+        $include_page = 'setting.permission.datatable';
+        $page_title = 'Permission';
+
+        $data = [
+            'include_page' => $include_page,
+            'page_title' => $page_title,
+        ];
+        return $permissionDataTable->render('setting.index', $data);
     }
 
     public function assignRevoke(Request $request)
