@@ -10,11 +10,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="mb-3">
-                            <label class="form-label" for="inputUsername">Username</label>
-                            <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                            <label class="form-label" for="userName">Name</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Name">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="inputUsername">Biography</label>
+                            <label class="form-label" for="inputBio">Biography</label>
                             <textarea rows="2" class="form-control" id="inputBio" placeholder="Tell something about yourself"></textarea>
                         </div>
                     </div>
