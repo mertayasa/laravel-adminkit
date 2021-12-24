@@ -76,7 +76,7 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::post('assign-revoke', [PermissionController::class, 'assignRevoke'])->name('assign_revoke');
         Route::get('refresh', [PermissionController::class, 'refresh'])->name('refresh');
         Route::get('refresh-and-assign', [PermissionController::class, 'refreshAndAssign'])->name('refresh_and_assign');
-        Route::delete('destroy', [PermissionController::class, 'destroy'])->name('destroy');
+        Route::delete('destroy/{permission}', [PermissionController::class, 'destroy'])->name('destroy');
     });
 
 });

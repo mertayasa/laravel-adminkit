@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Role;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 class PermissionController extends Controller
 {
@@ -68,5 +69,21 @@ class PermissionController extends Controller
         }
 
         return response(['code' => 1, 'message' => 'Permission updated successfully']);
+    }
+
+    public function destroy(Permission $permission)
+    {
+        try{
+            if(Route::has($permission->name)){
+                return response(['code' => 0, 'message' => 'Route Exists and can not be deleted']);
+            }
+
+            $permission->delete();
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Unable to delete permission']);
+        }
+
+        return response(['code' => 1, 'message' => 'Permission deleted successfully']);
     }
 }

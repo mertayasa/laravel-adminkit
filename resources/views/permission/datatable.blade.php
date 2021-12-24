@@ -24,7 +24,7 @@
 
         $("#permissionDatatable").on( 'draw.dt', function () {
             initCheckbox();
-        } );
+        });
 
         function updateRolePermission(roleId, permission){
             const url = "{{ route('permission.assign_revoke') }}"

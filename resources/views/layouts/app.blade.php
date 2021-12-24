@@ -45,7 +45,7 @@
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('admin/js/app.js') }}"></script>
 	<script>
-		function deleteModel(deleteUrl, tableId, model = '', additional_warning = ''){
+		function deleteModel(deleteUrl, tableId, model = '', additional_warning = '', additionalMethod = null){
 			Swal.fire({
 				title: "Warning",
 				text: `Destroy data ${model}? ${additional_warning}`,
@@ -63,7 +63,7 @@
 						data : {"_token": "{{ csrf_token() }}"},
 						method : "delete",
 						success:function(data){
-							// console.log(data)
+							console.log(data)
 							if(data.code == 1){
 								Swal.fire(
 									'Berhasil',
@@ -71,7 +71,7 @@
 									'success'
 								)
 								if(additionalMethod != null){
-								additionalMethod.apply(this, [data.args])
+									additionalMethod.apply(this, [data.args])
 								}
 								
 							}else{
