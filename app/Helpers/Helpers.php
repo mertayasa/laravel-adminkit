@@ -80,7 +80,7 @@ function getStatus($status)
     return $status == 1 ? '<span class="badge badge-primary">Aktif</span>' : '<span class="badge badge-secondary">Nonaktif</span>';
 }
 
-function uploadFile($base_64_foto, $folder)
+function uploadFilepond($base_64_foto, $folder)
 {
     try {
         $foto = base64_decode($base_64_foto['data']);
@@ -102,6 +102,40 @@ function uploadFile($base_64_foto, $folder)
     }
 
     return $folder . '/' . $safeName;
+}
+
+function uploadFileHttp($file, $target = 'uploaded')
+{
+    $destinationPathImage = 'images/'. $target;
+
+    if (!file_exists(public_path($destinationPathImage))) {
+        mkdir(public_path($destinationPathImage), 0755, true);
+    }
+
+    // Get file extension
+    $extension = $file->getClientOriginalExtension();
+    $filename = $file->getClientOriginalName();
+
+    // Get file extension
+    $extension = $file->getClientOriginalExtension();
+    $filename = $file->getClientOriginalName();
+
+    // return $filename;
+    $original_name = pathinfo($filename, PATHINFO_FILENAME);
+
+
+    // Valid extensions
+    $validextensions = array('jpeg','png','jpg','gif','svg');
+
+    if(in_array(strtolower($extension), $validextensions)){
+        // Rename file 
+        $fileNameImages = time().str_replace(' ', '_', $original_name) .'.' . $extension;
+        // Uploading file to given path
+        $file->move(public_path($destinationPathImage), $fileNameImages);
+        return '/'.$destinationPathImage.'/'.$fileNameImages;
+    }
+
+    return false;
 }
 
 function strConInArray($array, $check)

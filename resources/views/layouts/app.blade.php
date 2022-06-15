@@ -56,34 +56,34 @@
 				confirmButtonText: 'Yes',
 				cancelButtonText: 'No'
 			}).then((result) => {
-				if (result.isConfirmed) {
-					$.ajax({
-						url : deleteUrl,
-						dataType : "Json",
-						data : {"_token": "{{ csrf_token() }}"},
-						method : "delete",
-						success:function(data){
-							console.log(data)
-							if(data.code == 1){
-								Swal.fire(
-									'Berhasil',
-									data.message,
-									'success'
-								)
-								if(additionalMethod != null){
-									additionalMethod.apply(this, [data.args])
-								}
-								
-							}else{
-								Swal.fire({
-									icon: 'error',
-									title: 'Oops...',
-									text: data.message
-								})
+				if (result.isConfirmed) {					
+					fetch(deleteUrl, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            method: 'DELETE',
+                        })
+                        .then(function(response) {
+                            const data = response.json()
+                            if (response.status != 200) {
+                                throw new Error()
+                            }
+
+                            return data
+                        })
+                        .then(data => {
+							$('#'+tableId).DataTable().ajax.reload()
+							
+							if(additionalMethod != null){
+								additionalMethod.apply(this, [data.args])
 							}
-							$('#'+tableId).DataTable().ajax.reload();
-						}
-					})
+
+							Swal.fire('Success', data.message,'success')
+                        })
+                        .catch((error) => {
+							Swal.fire('Error', "{{ trans('flash.failed.delete') }}", 'error')
+                        })
 				}
 			})
 		}

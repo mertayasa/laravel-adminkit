@@ -17,6 +17,22 @@
                 </li>
             @endcan
 
+            @can('product-category.index')
+                <li class="sidebar-item {{ isActive('product-category') }}">
+                    <a class="sidebar-link" href="{{ route('product-category.index') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Product Category</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('product.index')
+                <li class="sidebar-item {{ isActive('product') }}">
+                    <a class="sidebar-link" href="{{ route('product.index') }}">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Product</span>
+                    </a>
+                </li>
+            @endcan
+
             @php
                 $allowed_setting_permission = [
                     'setting.permission.index',

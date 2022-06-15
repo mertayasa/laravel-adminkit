@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\File;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -48,4 +49,15 @@ class User extends Authenticatable
     static $staff = 'staff';
     static $active = 'active';
     static $nonactive = 'nonactive';
+
+    public function getImage()
+    {
+        $image_path = $this->attributes['foto'];
+        $isExists = File::exists(public_path($image_path));
+        if ($isExists and $this->attributes['foto'] != '') {
+            return asset($image_path);
+        } else {
+            return asset('default/avatar.png');
+        }
+    }
 }

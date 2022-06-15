@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -35,6 +37,24 @@ Route::middleware(['auth', 'permission'])->group(function () {
         Route::get('/', function () {
             return view('sample.blank.index');
         })->name('index');
+    });
+
+    Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
+        Route::patch('/update/{product}', [ProductController::class, 'update'])->name('update');
+        Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'product-category', 'as' => 'product-category.'], function () {
+        Route::get('/', [ProductCategoryController::class, 'index'])->name('index');
+        Route::get('/create', [ProductCategoryController::class, 'create'])->name('create');
+        Route::post('/store', [ProductCategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{product_category}', [ProductCategoryController::class, 'edit'])->name('edit');
+        Route::patch('/update/{product_category}', [ProductCategoryController::class, 'update'])->name('update');
+        Route::delete('/destroy/{product_category}', [ProductCategoryController::class, 'destroy'])->name('destroy');
     });
     
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {

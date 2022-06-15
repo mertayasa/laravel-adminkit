@@ -1,0 +1,2 @@
+<a href="{{ route('product-category.edit', $slug) }}" class="btn btn-sm btn-warning">Edit</a>
+<button onclick="deleteModel('{{ route('product-category.destroy', $slug) }}', 'productCategoryDatatable', 'product category', 'product category {{ $name }} will deleted')" class="btn btn-sm btn-danger">Delete</button>
