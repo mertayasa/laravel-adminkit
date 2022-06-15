@@ -18,10 +18,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama',
+        'name',
         'email',
         'password',
-        'level',
+        'status',
+        'avatar',
     ];
 
     /**
@@ -44,8 +45,7 @@ class User extends Authenticatable
     ];
 
     static $admin = 'admin';
-    static $role1 = 'role1';
-    static $role2 = 'role2';
+    static $staff = 'staff';
     static $active = 'active';
     static $nonactive = 'nonactive';
 }

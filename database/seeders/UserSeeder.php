@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('asdasdasd'), // password
                 'remember_token' => Str::random(10),
+                'avatar' => '/default/avatar.png',
             ],
         ];
 
