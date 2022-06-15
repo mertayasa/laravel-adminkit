@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Facades\File;
 
 class Product extends Model
 {
@@ -20,6 +21,11 @@ class Product extends Model
         'discount_price',
         'quantity',
         'category_id',
+    ];
+
+    protected $casts = [
+        'price' => 'float',
+        'discount_price' => 'float',
     ];
 
     public function getRouteKeyName()
@@ -39,5 +45,16 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function getImage()
+    {
+        $image_path = $this->attributes['image'];
+        $isExists = File::exists(public_path($image_path));
+        if ($isExists and $this->attributes['image'] != '') {
+            return asset($image_path);
+        } else {
+            return asset('default/avatar.png');
+        }
     }
 }

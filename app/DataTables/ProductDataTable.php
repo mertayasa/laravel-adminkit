@@ -21,7 +21,11 @@ class ProductDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'productdatatable.action');
+            ->editColumn('image', function(Product $product){
+                return '<img src="'.$product->getImage().'" width="50px" height="50px" style="object-fit:cover">';
+            })
+            ->addColumn('action', 'product.datatable-action')
+            ->rawColumns(['image', 'action']);
     }
 
     /**
@@ -32,7 +36,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model)
     {
-        return $model->newQuery();
+        return $model->with('category')->newQuery();
     }
 
     /**
@@ -43,18 +47,12 @@ class ProductDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('productdatatable-table')
+                    ->setTableId('productDatatable')
                     ->columns($this->getColumns())
+                    ->addAction(['title' => 'Action', 'width' => '150px', 'printable' => false, 'responsivePriority' => '100', 'id' => 'actionColumn'])
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1, 'DESC');
     }
 
     /**
@@ -65,15 +63,47 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            [
+                'data' => 'image',
+                'title' => 'Image',
+                'searchable' => false,
+                'orderable' => false
+            ],
+            [
+                'data' => 'updated_at',
+                'visible' => false,
+                'searchable' => true
+            ],
+            [
+                'name' => 'name',
+                'data' => 'name',
+                'title' => 'Product',
+            ],
+            [
+                'name' => 'category.name',
+                'data' => 'category.name',
+                'title' => 'Category',
+            ],
+            [
+                'name' => 'price',
+                'data' => 'price',
+                'title' => 'Price',
+            ],
+            [
+                'name' => 'discount_price',
+                'data' => 'discount_price',
+                'title' => 'Discount Price',
+            ],
+            [
+                'name' => 'quantity',
+                'data' => 'quantity',
+                'title' => 'Quantity',
+            ],
+            [
+                'name' => 'description',
+                'data' => 'description',
+                'title' => 'Description',
+            ],
         ];
     }
 

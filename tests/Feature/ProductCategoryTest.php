@@ -43,7 +43,6 @@ class ProductCategoryTest extends TestCase
 
     public function test_create_category_screen_can_be_rendered()
     {
-        // Visit the profile page
         $response = $this->get(route('product-category.create'));
         $response->assertStatus(200);
     }
@@ -85,6 +84,14 @@ class ProductCategoryTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_edit_product_category_screen_can_be_rendered()
+    {
+        ProductCategory::factory()->count(10)->create();
+        $response = $this->get(route('product-category.edit', ProductCategory::first()));
+        $response->assertStatus(200);
+    }
+
 
     public function test_failed_update_category()
     {

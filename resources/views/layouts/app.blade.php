@@ -87,6 +87,22 @@
 				}
 			})
 		}
+
+		function strict2Decimal(element) {
+            let value = element.value;
+            element.value = (value.indexOf(".") >= 0) ? (value.substr(0, value.indexOf(".")) + value.substr(value.indexOf("."), 3)) : value
+        }
+
+        function rmStringFromNumber(value){
+            return value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+        }
+
+        document.body.addEventListener('input', function ( element ) {
+            if( element.target.classList.contains('number-decimal') ) {
+                element.target.value = rmStringFromNumber(element.target.value)
+                strict2Decimal(element.target)
+            }
+        })
 	</script>
 	@stack('scripts')
 </body>
