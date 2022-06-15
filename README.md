@@ -6,3 +6,6 @@
 
 ## How to run
 - php artisan test
+
+## Note 
+- If you create or modify route name. Make sure to refresh permission and assign it to admin in setting page
