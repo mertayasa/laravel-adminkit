@@ -19,11 +19,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nama',
         'status',
-        'avatar',
+        'username',
+        'password',
+        'tanggal_bergabung',
+        'id_unit',
     ];
 
     /**
@@ -46,18 +47,30 @@ class User extends Authenticatable
     ];
 
     static $admin = 'admin';
-    static $staff = 'staff';
+    static $karyawan = 'karyawan';
     static $active = 'active';
     static $nonactive = 'nonactive';
 
-    public function getImage()
-    {
-        $image_path = $this->attributes['foto'];
-        $isExists = File::exists(public_path($image_path));
-        if ($isExists and $this->attributes['foto'] != '') {
-            return asset($image_path);
-        } else {
-            return asset('default/avatar.png');
-        }
+    public function loginlog() {
+        return $this->hasMany(LoginLog::class, 'id_user');
     }
+
+    public function userjabatan() {
+        return $this->hasMany(UserJabatan::class, 'id_user');
+    }
+
+    public function unit() {
+        return $this->belongsTo(Unit::class, 'id_unit');
+    }
+
+    // public function getImage()
+    // {
+    //     $image_path = $this->attributes['foto'];
+    //     $isExists = File::exists(public_path($image_path));
+    //     if ($isExists and $this->attributes['foto'] != '') {
+    //         return asset($image_path);
+    //     } else {
+    //         return asset('default/avatar.png');
+    //     }
+    // }
 }

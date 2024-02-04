@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,23 +40,32 @@ Route::middleware(['auth', 'permission'])->group(function () {
         })->name('index');
     });
 
-    Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-        Route::get('/', [ProductController::class, 'index'])->name('index');
-        Route::get('/create', [ProductController::class, 'create'])->name('create');
-        Route::post('/store', [ProductController::class, 'store'])->name('store');
-        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
-        Route::patch('/update/{product}', [ProductController::class, 'update'])->name('update');
-        Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
+        Route::patch('/update/{user}', [UserController::class, 'update'])->name('update');
+        Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix' => 'product-category', 'as' => 'product-category.'], function () {
-        Route::get('/', [ProductCategoryController::class, 'index'])->name('index');
-        Route::get('/create', [ProductCategoryController::class, 'create'])->name('create');
-        Route::post('/store', [ProductCategoryController::class, 'store'])->name('store');
-        Route::get('/edit/{product_category}', [ProductCategoryController::class, 'edit'])->name('edit');
-        Route::patch('/update/{product_category}', [ProductCategoryController::class, 'update'])->name('update');
-        Route::delete('/destroy/{product_category}', [ProductCategoryController::class, 'destroy'])->name('destroy');
-    });
+    // Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    //     Route::get('/', [ProductController::class, 'index'])->name('index');
+    //     Route::get('/create', [ProductController::class, 'create'])->name('create');
+    //     Route::post('/store', [ProductController::class, 'store'])->name('store');
+    //     Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
+    //     Route::patch('/update/{product}', [ProductController::class, 'update'])->name('update');
+    //     Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    // });
+
+    // Route::group(['prefix' => 'product-category', 'as' => 'product-category.'], function () {
+    //     Route::get('/', [ProductCategoryController::class, 'index'])->name('index');
+    //     Route::get('/create', [ProductCategoryController::class, 'create'])->name('create');
+    //     Route::post('/store', [ProductCategoryController::class, 'store'])->name('store');
+    //     Route::get('/edit/{product_category}', [ProductCategoryController::class, 'edit'])->name('edit');
+    //     Route::patch('/update/{product_category}', [ProductCategoryController::class, 'update'])->name('update');
+    //     Route::delete('/destroy/{product_category}', [ProductCategoryController::class, 'destroy'])->name('destroy');
+    // });
     
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {

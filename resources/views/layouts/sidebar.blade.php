@@ -1,7 +1,8 @@
 <nav id="sidebar" class="sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">AdminKit</span>
+            {{-- <span class="align-middle">AdminKit</span> --}}
+            <img src="{{ asset('default/logo_puri_bunda.webp') }}" alt="" srcset="" width="100">
         </a>
 
         <ul class="sidebar-nav">
@@ -17,18 +18,10 @@
                 </li>
             @endcan
 
-            @can('product-category.index')
-                <li class="sidebar-item {{ isActive('product-category') }}">
-                    <a class="sidebar-link" href="{{ route('product-category.index') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Product Category</span>
-                    </a>
-                </li>
-            @endcan
-
-            @can('product.index')
-                <li class="sidebar-item {{ isActive('product') }}">
-                    <a class="sidebar-link" href="{{ route('product.index') }}">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Product</span>
+            @can('user.index')
+                <li class="sidebar-item {{ isActive('user') }}">
+                    <a class="sidebar-link" href="{{ route('user.index') }}">
+                        <i class="align-middle" data-feather="users"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
             @endcan
@@ -48,7 +41,7 @@
                 </li>
             @endif
 
-            <li class="sidebar-header">
+            {{-- <li class="sidebar-header">
                 Multi Level
             </li>
             
@@ -65,7 +58,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="ui-modals.html">Level 2</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="ui-typography.html">Level 2</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
 
 

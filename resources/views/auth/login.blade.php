@@ -17,14 +17,14 @@
                     <div class="card-body">
                         <div class="m-sm-4">
                             <div class="text-center">
-                                <img src="adminkit.png" alt="Logo App" class="img-fluid" width="132" height="132" />
+                                <img src="{{ asset('default/logo_puri_bunda.webp') }}" class="img-fluid" alt="" srcset="" width="100">
                             </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label">Email</label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    @error('email')
+                                    <label class="form-label">Username</label>
+                                    <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                    @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

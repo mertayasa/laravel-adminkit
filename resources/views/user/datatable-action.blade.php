@@ -1,0 +1,2 @@
+<a href="{{ route('user.edit', $id) }}" class="btn btn-sm btn-warning">Edit</a>
+<button onclick="deleteModel('{{ route('user.destroy', $id) }}', 'userDatatable', 'user', 'karyawan {{ $nama }} akan dihapus')" class="btn btn-sm btn-danger">Delete</button>

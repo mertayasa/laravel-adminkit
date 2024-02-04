@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
 use App\Http\Requests\UserRequest;
+use App\Models\Jabatan;
+use App\Models\Unit;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,20 +13,20 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller{
 
-    public function index(){
-        return view('user.index');
+    public function index(UserDataTable $userDataTable){
+        return $userDataTable->render('user.index');
     }
-
-    public function datatable(){
-        $users = User::all();
-
-        return UserDataTable::set($users);
-    }
-
+    
     public function create(){
-        $levels = [User::$staff => User::$staff, User::$admin => User::$admin, User::$kades => User::$kades];
+        $jabatan = Jabatan::pluck('nama', 'id');
+        $unit = Unit::pluck('nama', 'id');
 
-        return view('user.create', compact('levels'));
+        $data = [
+            'jabatan' => $jabatan,
+            'unit' => $unit
+        ];
+
+        return view('user.create', $data);
     }
 
     public function store(UserRequest $request){
@@ -39,9 +41,16 @@ class UserController extends Controller{
     }
 
     public function edit(User $user){
-        $levels = [User::$staff => User::$staff, User::$admin => User::$admin, User::$kades => User::$kades];
+        $jabatan = Jabatan::pluck('nama', 'id');
+        $unit = Unit::pluck('nama', 'id');
 
-        return view('user.edit', compact('user', 'levels'));
+        $data = [
+            'user' => $user,
+            'jabatan' => $jabatan,
+            'unit' => $unit
+        ];
+
+        return view('user.create', $data);
     }
 
     public function update(UserRequest $request, User $user){
@@ -55,22 +64,12 @@ class UserController extends Controller{
             }
 
             $user->update($data);
-
-            // $base_64_foto = json_decode($request['foto'], true);
-            // $upload_image = uploadFile($base_64_foto);
-
-            // if($upload_image == 0){
-            //     return redirect()->back()->withInput()->with('error', 'Gagal mengupload gambar!');
-            // }
-
-            // $data['foto'] = $upload_image;
-
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Gagal mengubah profile pengguna');
+            return redirect()->back()->withInput()->with('error', 'Gagal mengubah profile karyawan');
         }
 
-        return redirect()->route('user.index')->with('success','Profile pengguna berhasil diubah!');
+        return redirect()->route('user.index')->with('success','Profile karyawan berhasil diubah!');
     }
 
     public function destroy(User $user){
@@ -78,9 +77,9 @@ class UserController extends Controller{
             $user->delete();
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal menghapus user']);
+            return response(['code' => 0, 'message' => 'Gagal menghapus profile karyawan']);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil menghapus user']);
+        return response(['code' => 1, 'message' => 'Berhasil menghapus profile karyawan']);
     }
 }
